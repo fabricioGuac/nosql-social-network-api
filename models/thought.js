@@ -11,6 +11,7 @@ const thoughtSchema = new Schema({
     createdAt:{
         type:Date,
         default:  Date.now,
+        // get: (timestamp) => dateFormatT
     },
     username:{
         type:String,
@@ -31,7 +32,7 @@ thoughtSchema.methods.fotmatDate = function(){
 }
 
 thoughtSchema.virtual('reactionCount').get(function(){
-    return this.reactions.lenght;
+    return this.reactions.length;
 })
 
 const Thoughts = model('thougts', thoughtSchema);

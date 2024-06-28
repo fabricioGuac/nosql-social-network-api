@@ -1,5 +1,5 @@
 const { connect, connection } = require('mongoose');
 
-connect(MONGOURI);
+connect(process.env.MONGOURI);
 
 module.exports = connection;
