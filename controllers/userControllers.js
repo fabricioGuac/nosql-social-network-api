@@ -6,7 +6,7 @@ module.exports = {
             const users = await User.find();
             if(users.length === 0){
                 res.status(400).json({message:"No users registered"});
-                return
+                return;
             }
             res.status(200).json(users);
         } catch (err) {
@@ -18,7 +18,7 @@ module.exports = {
             const user = await User.findById(req.params.id);
             if(!user){
                 res.status(400).json({message:"No users registered under that id"});
-                return
+                return;
             }
             res.status(200).json(user);
         } catch (err) {
@@ -39,7 +39,7 @@ module.exports = {
             const userEd = await User.findByIdAndUpdate(req.params.id, {$set:req.body}, {runValidators:true, new:true});
             if(!userEd){
                 res.status(400).json({message:'No user registered under that id'});
-                return
+                return;
             }
             res.status(200).json(userEd);
         } catch (err) {
@@ -51,7 +51,7 @@ module.exports = {
             const exUser = await User.findByIdAndDelete(req.params.id)
             if(!exUser){
                 res.status(400).json({message:'No user registered under that id'});
-                return
+                return;
             }
 
             await Thought.deleteMany({_id: {$in:exUser.thoughts} }); 
@@ -67,7 +67,7 @@ module.exports = {
 
             if(!user){
                 res.status(400).json({message:'No user registered under that id'});
-                return
+                return;
             }
 
             res.status(200).json(user);
@@ -81,7 +81,7 @@ module.exports = {
 
             if(!user){
                 res.status(400).json({message:'No user registered under that id'});
-                return
+                return;
             }
 
             res.status(200).json(user);
