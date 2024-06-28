@@ -60,5 +60,33 @@ module.exports = {
         } catch (err) {
             res.status(500).json({message:`Error deleting the user ${err}`});
         }
+    },
+    async addFriend(req,res){
+        try {
+            const user = await User.findByIdAndUpdate(req.params.id, {$addToSet:{friends:req.params.friendId}}, {runValidators:true, new:true});
+
+            if(!user){
+                res.status(400).json({message:'No user registered under that id'});
+                return
+            }
+
+            res.status(200).json(user);
+        } catch (err) {
+            res.status(500).json({message: `Error adding frien ${err}`})
+        }
+    },
+    async unfriend(req, res){
+        try {
+            const user = await User.findByIdAndUpdate(req.params.id,{$pull: {friends:req.params.friendId}}, {runValidators:true, new:true});
+
+            if(!user){
+                res.status(400).json({message:'No user registered under that id'});
+                return
+            }
+
+            res.status(200).json(user);
+        } catch (err) {
+            res.status(500).json({message:`Error deleting friend ${err}`});
+        }
     }
 }
