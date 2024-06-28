@@ -4,8 +4,9 @@ module.exports = {
     async userGetter(req, res){
         try {
             const users = await User.find();
-            if(!users){
+            if(users.length === 0){
                 res.status(400).json({message:"No users registered"});
+                return
             }
             res.status(200).json(users);
         } catch (err) {
@@ -14,9 +15,10 @@ module.exports = {
     },
     async idUserGetter(req, res){
         try {
-            const user = await User.findById(req.params.userId);
+            const user = await User.findById(req.params.id);
             if(!user){
                 res.status(400).json({message:"No users registered under that id"});
+                return
             }
             res.status(200).json(user);
         } catch (err) {
@@ -34,9 +36,10 @@ module.exports = {
     async userUpdater(req,res){
         try {
             // Run validators and new, run validators ensure it sticks to the validation rules and new ensures that it returns the updated version 
-            const userEd = await User.findByIdAndUpdate(req.params.userId, {$set:req.body}, {runValidators:true, new:true});
+            const userEd = await User.findByIdAndUpdate(req.params.id, {$set:req.body}, {runValidators:true, new:true});
             if(!userEd){
                 res.status(400).json({message:'No user registered under that id'});
+                return
             }
             res.status(200).json(userEd);
         } catch (err) {
@@ -45,14 +48,15 @@ module.exports = {
     },
     async userDeleter(req, res){
         try {
-            const exUser = await User.findByIdAndDelete(req.params.userId)
+            const exUser = await User.findByIdAndDelete(req.params.id)
             if(!exUser){
                 res.status(400).json({message:'No user registered under that id'});
+                return
             }
 
             await Thought.deleteMany({_id: {$in:exUser.thoughts} }); 
 
-            res.status(200).json({message:`${exUser} deleted successfully`});
+            res.status(200).json(exUser);
         } catch (err) {
             res.status(500).json({message:`Error deleting the user ${err}`});
         }
