@@ -29,7 +29,12 @@ module.exports = {
         try {
             const newThought =  await Thought.create(req.body);
 
-            await User.findByIdAndUpdate(req.body.userId,{$addToSet:{thoughts:newThought._id}},{runValidators:true, new:true});
+            const owner = await User.findByIdAndUpdate(req.body.userId,{$addToSet:{thoughts:newThought._id}},{runValidators:true, new:true});
+
+            if(!owner){
+                res.status(400).json({message:'No user under that id'});
+                return;
+            }
 
             res.status(200).json(newThought);
         } catch (err) {
@@ -81,7 +86,7 @@ module.exports = {
     
     async delReaction(req, res){
         try {
-            const exReaction = await Thought.findByIdAndUpdate(req.params.id, {$pull:{reactions:req.params.reactionId}}, {runValidators:true, new:true});
+            const exReaction = await Thought.findByIdAndUpdate(req.params.id, {$pull:{reactions:{reactionId:req.params.reactionId}}}, {runValidators:true, new:true});
 
             if(!exReaction){
                 res.status(400).json({message:'No thought under that id'});

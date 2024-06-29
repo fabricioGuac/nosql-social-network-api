@@ -2,7 +2,7 @@ const {Schema, model} = require('mongoose');
 const reactions = require('./reaction');
 
 const thoughtSchema = new Schema({
-    thougtText:{
+    thoughtText:{
         type:String,
         min_length:1,
         max_length:280,
