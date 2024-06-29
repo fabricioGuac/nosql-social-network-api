@@ -1,5 +1,7 @@
 const {Schema, model} = require('mongoose');
 const reactions = require('./reaction');
+const dayjs = require('dayjs');
+
 
 const thoughtSchema = new Schema({
     thoughtText:{
@@ -11,7 +13,9 @@ const thoughtSchema = new Schema({
     createdAt:{
         type:Date,
         default:  Date.now,
-        // get: (timestamp) => dateFormatT
+        get: function (createdAt) {
+            return dayjs(createdAt).format('MMM D[,] YYYY [at] h:mm A');
+        }
     },
     username:{
         type:String,
@@ -26,10 +30,6 @@ const thoughtSchema = new Schema({
     id:false,
 }
 )
-
-thoughtSchema.methods.fotmatDate = function(){
-    return this.createdAt.toLocaleDateString();
-}
 
 thoughtSchema.virtual('reactionCount').get(function(){
     return this.reactions.length;

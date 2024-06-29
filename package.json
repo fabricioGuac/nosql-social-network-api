@@ -16,6 +16,7 @@
   "author": "Fabricio Guacuto",
   "license": "ISC",
   "dependencies": {
+    "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.4.4"

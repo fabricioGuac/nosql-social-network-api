@@ -1,4 +1,5 @@
 const {Schema, Types} = require('mongoose');
+const dayjs = require('dayjs');
 
 const reactionSchema =  new Schema({
     reactionId:{
@@ -17,6 +18,9 @@ const reactionSchema =  new Schema({
     createdAt:{
         type:Date,
         default: Date.now,
+        get: function (createdAt) {
+            return dayjs(createdAt).format('MMM D[,] YYYY [at] h:mm A');
+        }
     }
 },
 {
@@ -25,9 +29,5 @@ const reactionSchema =  new Schema({
     },
     id:false,
 })
-
-reactionSchema.methods.fotmatDate = function(){
-    return this.createdAt.toLocaleDateString();
-}
 
 module.exports = reactionSchema;
