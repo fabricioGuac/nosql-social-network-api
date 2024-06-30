@@ -14,7 +14,7 @@ To use this project, create a .env file in the root directory with your MongoDB 
 
 ## Walkthrough video
 
-[Click here to go to a walkthrough video]()
+[Click here to go to a walkthrough video](https://drive.google.com/file/d/1y4JD8M9ZoaqFnso3jXvrEMlbLEqJLr_y/view)
 
 
 ## Credits
