@@ -1,5 +1,7 @@
+// Imports the schema class and the model object from mongoose
 const {Schema, model} = require('mongoose');
 
+// Creates a new instance of the mongoose schema with fields for username, email, thoughts, and friends
 const userSchema = new Schema({
     username:{
         type: String,
@@ -33,10 +35,13 @@ const userSchema = new Schema({
     }
 )
 
+// Creates a virtual field 'friendCount' to calculate the number of friends a user has
 userSchema.virtual('friendCount').get(function(){
     return this.friends.length;
 })
 
+// Creates a model using the userSchema
 const User = model('user', userSchema);
 
+// Exports the User model
 module.exports = User;

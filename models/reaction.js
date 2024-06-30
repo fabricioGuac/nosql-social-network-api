@@ -1,6 +1,9 @@
+// Imports the schema class and the Types object from mongoose
 const {Schema, Types} = require('mongoose');
+// Imports dayjs
 const dayjs = require('dayjs');
 
+// Creates a new instance of the mongoose schema with fields for reactionId, reactionBody, username and  createdAt
 const reactionSchema =  new Schema({
     reactionId:{
         type: Schema.Types.ObjectId,
@@ -30,4 +33,5 @@ const reactionSchema =  new Schema({
     id:false,
 })
 
+// Exports the reaction schema 
 module.exports = reactionSchema;

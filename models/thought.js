@@ -1,8 +1,11 @@
+// Imports the schema class and the model object from mongoose
 const {Schema, model} = require('mongoose');
+// Imports the reaction schema
 const reactions = require('./reaction');
+// Imports dayjs
 const dayjs = require('dayjs');
 
-
+// Creates a new instance of the mongoose schema with fields for thoughtText, createdAt, username and reactions 
 const thoughtSchema = new Schema({
     thoughtText:{
         type:String,
@@ -31,10 +34,13 @@ const thoughtSchema = new Schema({
 }
 )
 
+// Creates a virtual field 'reactionCount' to calculate the number of reactions a thought has
 thoughtSchema.virtual('reactionCount').get(function(){
     return this.reactions.length;
 })
 
+// Creates a model using the thoughtSchema
 const Thoughts = model('thougts', thoughtSchema);
 
+// Exports the Thought model
 module.exports = Thoughts;
