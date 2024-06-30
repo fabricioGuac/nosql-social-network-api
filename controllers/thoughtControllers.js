@@ -48,6 +48,12 @@ module.exports = {
                 return;
             }
 
+            // Ensurees the username matches the user id
+            if(user.username !== req.body.username){
+                res.status(400).json({message:'User id does not match the username'});
+                return;   
+            }
+
             // Creates a new thought with the contents of the request body that match the schema
             const newThought =  await Thought.create(req.body);
 
